@@ -1,29 +1,33 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define forloop(x,y) for(int i=x;i<y;i++)
-#define secondfor(x,y) for(int j=x;j<y;j++)
 #define print(x) cout << x << "\n";
 
-ll findMoveCount(ll x, ll y, ll k){
-    ll num=0;ll xCov=0;ll yCov=0;
-    while(xCov<x || yCov<y){
-        if(num%2==0){xCov+=min(k,x-xCov);}
-        else{yCov+=min(k,y-yCov);}
-        num++;
-        if(x==xCov && y==yCov){return num;}
-    }
+ll findMoveCount(ll x, ll y, ll k) {
+    // Calculate the minimum number of moves needed to cover x distance
+    ll movesX = (x + k - 1) / k;
+    
+    // Calculate the minimum number of moves needed to cover y distance
+    ll movesY = (y + k - 1) / k;
+    
+    // The total number of moves required
+    // We need at least max(movesX, movesY) moves to cover both dimensions.
+    // Because we alternate directions, we need to ensure we have enough moves to cover the greater distance.
+    return max(movesX, movesY) + (max(movesX, movesY) - 1);
 }
-void solution(int test){
-    while(test--){
-        ll x; ll y;ll k;
+
+void solution(int test) {
+    while (test--) {
+        ll x, y, k;
         cin >> x >> y >> k;
-        ll ans = findMoveCount(x,y,k);
+        ll ans = findMoveCount(x, y, k);
         print(ans);
     }
 }
-int main(){
+
+int main() {
     int test;
     cin >> test;
     solution(test);
+    return 0;
 }
